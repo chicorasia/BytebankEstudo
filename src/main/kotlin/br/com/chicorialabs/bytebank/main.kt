@@ -1,46 +1,48 @@
-import br.com.chicorialabs.bytebank.dominio.shared.Endereco
+import br.com.chicorialabs.bytebank.legado.Teste
+import br.com.chicorialabs.bytebank.legado.teste
 
 fun main() {
 
-    println("inicio main")
-//    funcao1()
-//    testaComportamentosDaConta()
+    testaTipoFuncaoReferencia()
+    testaTipoFuncaoClasse()
 
-    val endereco: Endereco? = Endereco(logradouro = "Rua do Herval")
-    var logradouroNovo: String = "Rua Gervais"
-    endereco?.logradouro = logradouroNovo
-    endereco.let{ endereco: Endereco? ->
-        println(endereco?.logradouro)
-        val tamanhoComplemento: Int? = endereco?.complemento?.length ?: 100
-        println(tamanhoComplemento)
+    val umaFuncaoLambda: (Int, Int) -> Int = { a, b ->
+        a + b
     }
 
+    println(umaFuncaoLambda(10,10))
 
-
-    println("fim main")
-
-}
-
-
-
-fun funcao2() {
-    println("início função 2")
-    try{
-        val endereco = Any()
-        throw ClassCastException("Não pode converter Any em Endereco!!!")
-
-    } catch (e: ClassCastException){
-        println(e.message)
-        println("A ClassCastException foi pega!")
+    val umaFuncaoAnonima: (Int, Int, Int) -> Int  = fun (a, b, _): Int{
+        println("executando soma de $a e $b")
+        return a + b
     }
-    println("fim função 2")
+
+    val umaFuncaoAnonimaComTipoImplicito = fun (a: Int, b: Int) : Int {
+        return a * b
+    }
+
+    println(umaFuncaoLambda(0,0))
+    println(umaFuncaoAnonima(15, 20, 10))
+    println(umaFuncaoAnonimaComTipoImplicito(8, 3))
+
 }
 
-fun funcao1(){
-    println("início função 1")
-    funcao2()
-    println("fim função 1")
+fun testaTipoFuncaoClasse() {
+    val minhaFuncaoClasse: () -> Unit = Teste()
+    println(minhaFuncaoClasse())
 }
+
+fun testaTipoFuncaoReferencia() {
+    val minhaFuncao: () -> Unit = ::teste
+    println(minhaFuncao())
+}
+
+
+
+
+
+
+
 
 
 
