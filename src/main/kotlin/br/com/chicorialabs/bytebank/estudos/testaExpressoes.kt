@@ -1,4 +1,4 @@
-package br.com.chicorialabs.bytebank.legado
+package br.com.chicorialabs.bytebank.estudos
 
 import java.lang.NumberFormatException
 

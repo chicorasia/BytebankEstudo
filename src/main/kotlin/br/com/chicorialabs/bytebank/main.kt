@@ -1,41 +1,57 @@
-import br.com.chicorialabs.bytebank.legado.Teste
-import br.com.chicorialabs.bytebank.legado.teste
+import br.com.chicorialabs.bytebank.dominio.cliente.Cliente
+import br.com.chicorialabs.bytebank.dominio.conta.ContaPoupanca
+import br.com.chicorialabs.bytebank.dominio.shared.Endereco
+import br.com.chicorialabs.bytebank.estudos.testaObjectExpressionComInterface
+import kotlin.math.pow
+import java.lang.Math.pow as pow
 
 fun main() {
 
-    testaTipoFuncaoReferencia()
-    testaTipoFuncaoClasse()
-
-    val umaFuncaoLambda: (Int, Int) -> Int = { a, b ->
-        a + b
-    }
-
-    println(umaFuncaoLambda(10,10))
-
-    val umaFuncaoAnonima: (Int, Int, Int) -> Int  = fun (a, b, _): Int{
-        println("executando soma de $a e $b")
-        return a + b
-    }
-
-    val umaFuncaoAnonimaComTipoImplicito = fun (a: Int, b: Int) : Int {
-        return a * b
-    }
-
-    println(umaFuncaoLambda(0,0))
-    println(umaFuncaoAnonima(15, 20, 10))
-    println(umaFuncaoAnonimaComTipoImplicito(8, 3))
+    testaObjectExpressionComInterface()
 
 }
 
-fun testaTipoFuncaoClasse() {
-    val minhaFuncaoClasse: () -> Unit = Teste()
-    println(minhaFuncaoClasse())
+fun testaRun() {
+    val taxaAnual = 0.05
+    val taxaMensal = converteTaxaAnualEmMensal(taxaAnual)
+
+    val contaPoupanca = Cliente(nome = "Jack Sparrow", cpf = "000.000.000-00", senha = 1234)
+        .let { clienteNovo ->
+            ContaPoupanca(clienteNovo, 1000)
+        }
+
+    contaPoupanca.run {
+        run {
+            deposita(1000.0)
+            repeat(12) {
+                deposita(saldo * taxaMensal)
+            }
+        }.also {
+            println("Saldo ao final de 12 meses: $saldo")
+        }
+    }
 }
 
-fun testaTipoFuncaoReferencia() {
-    val minhaFuncao: () -> Unit = ::teste
-    println(minhaFuncao())
+fun converteTaxaAnualEmMensal(taxaAnual: Double): Double {
+    return (1.0 + taxaAnual).pow((1.0 / 12.0)) -1
 }
+
+fun testaWith() {
+    val enderecoCompleto = with(Endereco()) {
+        logradouro = "Rua dos Bobos"
+        numero = 0
+        complemento = "casa"
+        cep = "80000-000"
+        bairro = "Arca de Noé"
+        cidade = "Rio de Janeiro"
+        estado = "RJ"
+        completo()
+    }.let(::println)
+}
+
+
+
+
 
 
 

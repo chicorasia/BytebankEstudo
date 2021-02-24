@@ -1,8 +1,7 @@
-package br.com.chicorialabs.bytebank.legado
+package br.com.chicorialabs.bytebank.estudos
 
 import br.com.chicorialabs.bytebank.dominio.cliente.Cliente
-import testaTipoFuncaoClasse
-import testaTipoFuncaoReferencia
+
 
 fun testaFuncoesTipoReferenciaEClasse() {
     testaTipoFuncaoReferencia()

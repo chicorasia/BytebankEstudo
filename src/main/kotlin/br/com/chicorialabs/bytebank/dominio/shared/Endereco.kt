@@ -74,5 +74,12 @@ complemento='$complemento'
         return result
     }
 
+    fun completo() : String {
+        return """
+$logradouro - $numero - $complemento
+$cidade - $estado
+$cep """.trimIndent()
+    }
+
 
 }
